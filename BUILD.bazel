@@ -117,11 +117,30 @@ cc_library(
         "lib/decompress/zstd_decompress_block.h",
         "lib/decompress/zstd_decompress_internal.h",
         "lib/decompress/zstd_ddict.h",
+        "lib/common/zstd_internal.h",
     ],
-    strip_include_prefix = "lib/decompress",
+    #strip_include_prefix = "lib/decompress",
     deps = [
         ":common",
+        ":zstd_common",
         ":legacy",
+    ],
+)
+
+cc_library(
+    name = "everything",
+    copts = [
+        "-DXXH_NAMESPACE=ZSTD_",
+    ],
+    #hdrs = glob([("lib/decompress/*_impl.h")]),
+    srcs = glob([
+            "common/*.c",
+            "common/*.h",
+            "compress/*.c",
+            "compress/*.h",
+            "lib/decompress/*.h",
+            "lib/decompress/*.c",
+        ]) + [
     ],
 )
 
@@ -216,7 +235,10 @@ cc_library(
     hdrs = [
         "lib/common/zstd_internal.h",
     ],
-    srcs = ["lib/common/zstd_common.c"],
+    srcs = [
+        "lib/common/zstd_common.c",
+        "lib/common/zstd_trace.h",
+    ],
     deps = [
         ":compiler",
         ":cpu",
