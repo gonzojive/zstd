@@ -7,6 +7,8 @@ workspace(
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # https://github.com/nelhage/rules_boost
+#
+# Only needed for org_lzma_lzma
 http_archive(
     name = "com_github_nelhage_rules_boost",
     sha256 = "c1b8b2adc3b4201683cf94dda7eef3fc0f4f4c0ea5caa3ed3feffe07e1fb5b15",
@@ -30,5 +32,16 @@ http_archive(
     ],
 )
 
-load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
-boost_deps()
+http_archive(
+    name = "lz4",
+    build_file = "@com_github_facebook_zstd//build/bazel:lz4.BUILD",
+    patch_cmds = [
+        """sed -i.bak 's/__attribute__ ((__visibility__ ("default")))//g' lib/lz4frame.h """,
+    ],
+    sha256 = "658ba6191fa44c92280d4aa2c271b0f4fbc0e34d249578dd05e50e76d0e5efcc",
+    strip_prefix = "lz4-1.9.2",
+    urls = [
+        "https://storage.googleapis.com/mirror.tensorflow.org/github.com/lz4/lz4/archive/v1.9.2.tar.gz",
+        "https://github.com/lz4/lz4/archive/v1.9.2.tar.gz",
+    ],
+)
