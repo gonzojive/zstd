@@ -53,3 +53,12 @@ compile_commands.json
 .clangd
 perf.data
 perf.data.old
+
+# Bazel files copied into the root during build.
+/WORKSPACE.bazel
+/BUILD.bazel
+# Other bazel files
+bazel-bin
+bazel-out
+bazel-testlogs
+bazel-zstd

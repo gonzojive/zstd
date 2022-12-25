@@ -1,7 +1,9 @@
+# This build file is copied to the root of the zstd
+# repository using the build_file attribute of http_archive.
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "everything",
+    name = "zstd",
     srcs = [
         "lib/common/zstd_deps.h",
         "lib/common/error_private.h",

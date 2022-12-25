@@ -90,6 +90,11 @@ test:
 shortest:
 	$(Q)$(MAKE) -C $(TESTDIR) $@
 
+bazel:
+	cp build/bazel/zstd.WORKSPACE ./WORKSPACE.bazel
+	cp build/bazel/zstd.BUILD ./BUILD.bazel
+	bazel build :zstd
+
 ## check: run basic tests for `zstd` cli
 .PHONY: check
 check: shortest
